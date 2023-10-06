@@ -1,0 +1,464 @@
+openapi: 3.0.3
+info:
+  title: 'Product Mmanagemant Api'
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://product-management-api.test'
+paths:
+  /api/login:
+    post:
+      summary: login
+      operationId: login
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: homenick.aubree@example.net
+                password:
+                  type: string
+                  description: ''
+                  example: veniam
+              required:
+                - email
+                - password
+      security: []
+  /api/register:
+    post:
+      summary: register
+      operationId: register
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: odit
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: cronin.cordie@example.com
+                phone:
+                  type: number
+                  description: 'Must be at least 10.'
+                  example: 75
+                password:
+                  type: string
+                  description: ''
+                  example: odit
+              required:
+                - name
+                - email
+                - phone
+                - password
+      security: []
+  /api/payment/initiate:
+    post:
+      summary: 'initiate payment.'
+      operationId: initiatePayment
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - payment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: ''
+                  example: aut
+                product_id:
+                  type: string
+                  description: ''
+                  example: illum
+                invoice_id:
+                  type: string
+                  description: ''
+                  example: assumenda
+                txn_id:
+                  type: string
+                  description: ''
+                  example: qui
+                amount:
+                  type: string
+                  description: ''
+                  example: aperiam
+                status:
+                  type: string
+                  description: ''
+                  example: '0'
+                  enum:
+                    - '0'
+                    - '1'
+              required:
+                - user_id
+                - product_id
+                - invoice_id
+                - txn_id
+                - amount
+                - status
+  /api/payment/success:
+    get:
+      summary: 'get all success payment list with pagination.'
+      operationId: getAllSuccessPaymentListWithPagination
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - payment
+  /api/payment/failed:
+    get:
+      summary: 'get all failed payment list with pagination.'
+      operationId: getAllFailedPaymentListWithPagination
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - payment
+  /api/product:
+    get:
+      summary: 'get all product list with pagination.'
+      operationId: getAllProductListWithPagination
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - product
+    post:
+      summary: 'add new product.'
+      operationId: addNewProduct
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: error
+                original_amount:
+                  type: string
+                  description: ''
+                  example: id
+                discounted_amount:
+                  type: string
+                  description: ''
+                  example: maxime
+              required:
+                - name
+                - original_amount
+                - discounted_amount
+  '/api/product/{id}':
+    get:
+      summary: 'get product by id.'
+      operationId: getProductById
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - product
+    put:
+      summary: 'update product by id.'
+      operationId: updateProductById
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: aut
+                original_amount:
+                  type: string
+                  description: ''
+                  example: fugiat
+                discounted_amount:
+                  type: string
+                  description: ''
+                  example: nisi
+              required:
+                - name
+                - original_amount
+                - discounted_amount
+    delete:
+      summary: 'delete product by id.'
+      operationId: deleteProductById
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - product
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the product.'
+        example: ipsam
+        required: true
+        schema:
+          type: string
+  /api/product/search:
+    post:
+      summary: 'get product by search.'
+      operationId: getProductBySearch
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                search:
+                  type: string
+                  description: ''
+                  example: accusantium
+              required:
+                - search
+  /api/user:
+    get:
+      summary: 'get all user list with pagination.'
+      operationId: getAllUserListWithPagination
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - user
+  '/api/user/{id}':
+    get:
+      summary: 'get user profile by id.'
+      operationId: getUserProfileById
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - user
+    put:
+      summary: 'update user profile by id.'
+      operationId: updateUserProfileById
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: earum
+                email:
+                  type: string
+                  description: ''
+                  example: null
+                phone:
+                  type: string
+                  description: ''
+                  example: null
+              required:
+                - name
+    delete:
+      summary: 'delete user profile by id.'
+      operationId: deleteUserProfileById
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - user
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the user.'
+        example: quia
+        required: true
+        schema:
+          type: string
+  /api/user/search:
+    post:
+      summary: 'get user profile by search.'
+      operationId: getUserProfileBySearch
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                search:
+                  type: string
+                  description: ''
+                  example: possimus
+              required:
+                - search
+  '/api/user/password/{user}':
+    patch:
+      summary: 'update user password by id.'
+      operationId: updateUserPasswordById
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  description: ''
+                  example: sunt
+              required:
+                - password
+    parameters:
+      -
+        in: path
+        name: user
+        description: ''
+        example: ab
+        required: true
+        schema:
+          type: string
+tags:
+  -
+    name: authentication
+    description: ''
+  -
+    name: payment
+    description: ''
+  -
+    name: product
+    description: ''
+  -
+    name: user
+    description: ''
